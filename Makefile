@@ -2,14 +2,18 @@
 .DEFAULT_GOAL := help
 
 # build static lib for c
-dot-a-4c:
+static-c:
 	@echo "===== build static lib for c ====="
 	@gcc -c lib/hi.c -o lib/hi.o
+	@ar rcs lib/libhi.a lib/hi.o
+	@rm -fr lib/hi.o
 
 # build static lib for cpp
-dot-a-4cpp:
+static-cpp:
 	@echo "===== build static lib for cpp ====="
 	@g++ -c lib/hi.cpp -o lib/hi.o
+	@ar rcs lib/libhi.a lib/hi.o
+	@rm -fr lib/hi.o
 
 # build go binary
 build:

@@ -1,5 +1,5 @@
-#ifndef HELLO_H
-#define HELLO_H
+#ifndef HI_H
+#define HI_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -11,4 +11,4 @@ void print_hi();
 }
 #endif
 
-#endif // HELLO_H
+#endif // HI_H

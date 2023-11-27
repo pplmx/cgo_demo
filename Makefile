@@ -1,19 +1,32 @@
-.PHONY: help
+.PHONY: help static-c static-cpp build run run-c run-cpp exe-c exe-cpp clean
 .DEFAULT_GOAL := help
+
+# Variables
+CC = gcc
+CXX = g++
+
+ifeq ($(shell uname -s),Darwin)
+	CC = clang
+	CXX = clang++
+endif
+
+# build static lib
+# $(1): c or cpp
+# $(2): CC or CXX
+define build_static_lib
+	@echo "===== compile static lib for $(1) ====="
+	@$($(2)) -c lib/hi.$(1) -o lib/hi.o
+	@ar rcs lib/libhi.a lib/hi.o
+	@rm -fr lib/hi.o
+endef
 
 # build static lib for c
 static-c:
-	@echo "===== Compile static lib for c ====="
-	@gcc -c lib/hi.c -o lib/hi.o
-	@ar rcs lib/libhi.a lib/hi.o
-	@rm -fr lib/hi.o
+	$(call build_static_lib,c,CC)
 
 # build static lib for cpp
 static-cpp:
-	@echo "===== Compile static lib for cpp ====="
-	@g++ -c lib/hi.cpp -o lib/hi.o
-	@ar rcs lib/libhi.a lib/hi.o
-	@rm -fr lib/hi.o
+	$(call build_static_lib,cpp,CXX)
 
 # build go binary
 build:
